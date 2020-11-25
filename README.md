@@ -10,16 +10,16 @@ Implements for cardpay Java Challenger
 4. It is allowed to use dependencies only from public repositories. 
 5. Building the final application should be done with the command:
 ```mvn clean install```
+```java -jar target/convert-1.0.0.jar order1.csv order2.csv order3.json```
 6. The application must be console-based.
 Example of a run command:
-``` 
-java -jar orders_parser.jar orders1.csv orders2.json … ordersN.json
-```
+``` java -jar orders_parser.jar orders1.csv orders2.json … ordersN.json ```
 consider orders1.csv, orders2.json and ordersN.json are files to parse.
 7. The result of the execution should be output to stdout stream.
 Note: only output data should go to stdout, no logs should be there.
 8. Parsing and converting should be done in parallel in multiple threads.
 9. It is necessary to provide correct error handling in the source files.
+*I do not have time to correct this, since there are difference formats, but it should be same correct error. If I have more time I can do*
 For example, instead of a number, the file may have a string value in the amount field.
 10. It is allowed to use language tools no higher than Java 8.
 11. Consider the possibility of adding new input data formats. For example: XLSX
