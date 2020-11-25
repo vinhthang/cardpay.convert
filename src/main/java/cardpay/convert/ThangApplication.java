@@ -39,7 +39,7 @@ public class ThangApplication implements ApplicationRunner {
 	}
 
 	@Override
-	public void run(ApplicationArguments args) throws Exception {
+	public void run(ApplicationArguments args) {
 		args.getNonOptionArgs().forEach(filename -> {
 			try {
 				List<Order> orders = readFileService.read(filename).get();
