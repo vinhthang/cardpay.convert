@@ -39,6 +39,6 @@ public class JsonOrderReaderTest {
         Order order = jsonOrderReader.parseLine(line);
         log.debug("order", order);
         assertThat(order != null);
-        assertThat(order.getResult()).isEqualTo("Wrong format: " + line);
+        assertThat(order.getResult()).isNotEqualTo("OK");
     }
 }
