@@ -1,9 +1,6 @@
 package cardpay.convert;
 
 import cardpay.convert.service.ReadFileService;
-import com.fasterxml.jackson.databind.ObjectReader;
-import com.fasterxml.jackson.dataformat.csv.CsvMapper;
-import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -14,7 +11,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Executor;
 
 
@@ -34,24 +30,12 @@ public class ThangApplication implements ApplicationRunner {
 	@Bean
 	public Executor taskExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(2);
-		executor.setMaxPoolSize(2);
+		executor.setCorePoolSize(3);
+		executor.setMaxPoolSize(10);
 		executor.setQueueCapacity(500);
 		executor.setThreadNamePrefix("Order Read-");
 		executor.initialize();
 		return executor;
-	}
-
-	@Bean("csvReader")
-	public ObjectReader csvReader() {
-		CsvMapper mapper = new CsvMapper();
-		CsvSchema schema = CsvSchema
-				.emptySchema()
-				.withColumnSeparator(',')
-				.withoutHeader()
-				.withoutQuoteChar();
-
-		return mapper.readerFor(Map.class).with(schema);
 	}
 
 	@Override
