@@ -33,6 +33,7 @@ public class JsonOrderReader extends OrderReader {
             order.setComment(map.get("comment"));
             order.setId(Integer.parseInt(map.get("orderId")));
             order.setAmount(Double.parseDouble(map.get("amount")));
+            order.setResult("OK");
         } catch (Exception e) {
             order.setResult(e.getMessage());
         }

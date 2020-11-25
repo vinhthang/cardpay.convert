@@ -18,27 +18,24 @@ public class JsonOrderReaderTest {
     @Test
     public void testReadLine_success() {
         Order order = jsonOrderReader.parseLine("{\"orderId\":3,\"amount\":1.23,\"currency\":\"USD\",\"comment\":\"order payment\"}");
-        log.debug("order", order);
-        assertThat(order != null);
-        assertThat(order.getId() == 1);
-        assertThat(order.getAmount() == 100.0);
-        assertThat("OK".equals(order.getResult()));
+        assertThat(order).isNotNull();
+        assertThat(order.getId()).isEqualTo(3);
+        assertThat(order.getAmount()).isEqualTo(1.23);
+        assertThat(order.getResult()).isEqualTo("OK");
     }
 
     @Test
     public void testReadLine_wrong_amount() {
         Order order = jsonOrderReader.parseLine("{\"orderId\":3,\"amount\":1.x23,\"currency\":\"USD\",\"comment\":\"order payment\"}");
-        log.debug("order", order);
-        assertThat(order != null);
-        assertThat(!"OK".equals(order.getResult()));
+        assertThat(order).isNotNull();
+        assertThat(order.getResult()).isNotEqualTo("OK");
     }
 
     @Test
     public void testReadLine_wrong_format() {
         String line = "{\"orderId\":3x,\"amount\":1.23,\"currency\":\"USD\",\"comment\":\"order payment\"}";
         Order order = jsonOrderReader.parseLine(line);
-        log.debug("order", order);
-        assertThat(order != null);
+        assertThat(order).isNotNull();
         assertThat(order.getResult()).isNotEqualTo("OK");
     }
 }
