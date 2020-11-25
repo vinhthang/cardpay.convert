@@ -12,9 +12,11 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class ReadFileService {
     private final OrderReader csvOrderReader;
+    private final OrderReader jsonOrderReader;
 
-    public ReadFileService(@Qualifier("csvOrderReader") OrderReader csvOrderReader) {
+    public ReadFileService(@Qualifier("csvOrderReader") OrderReader csvOrderReader,@Qualifier("jsonOrderReader") OrderReader jsonOrderReader) {
         this.csvOrderReader = csvOrderReader;
+        this.jsonOrderReader = jsonOrderReader;
     }
 
     @Async
@@ -23,7 +25,7 @@ public class ReadFileService {
             return CompletableFuture.completedFuture(csvOrderReader.readFile(fileName));
         }
         if (fileName.endsWith("json")) {
-            return CompletableFuture.completedFuture(csvOrderReader.readFile(fileName));
+            return CompletableFuture.completedFuture(jsonOrderReader.readFile(fileName));
         }
 
         return CompletableFuture.completedFuture(Arrays.asList(Order.error("File type not support, " + fileName)));

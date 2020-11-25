@@ -14,41 +14,24 @@ import java.util.stream.IntStream;
 
 @Slf4j
 @Component
-public class CsvOrderReader implements OrderReader {
-    @Override
-    public List<Order> readFile(String filename) {
-        try {
-            List<String> lines = Files.readAllLines(Paths.get(filename));
-
-            return IntStream.range(0, lines.size()).mapToObj( i -> {
-                String line = lines.get(i);
-                Order order = this.parseLine(line);
-                order.setFilename(filename);
-                order.setLine(i + 1);
-                return order;
-            }).collect(Collectors.toList());
-        } catch (IOException e) {
-            return Arrays.asList(Order.error(e.getMessage()));
-        }
-    }
+public class CsvOrderReader extends OrderReader {
 
     @Override
     public Order parseLine(String line) {
-        Order result = new Order();
+        Order order = new Order();
         try {
             String[] split = line.split(",");
             if (split.length != 4) {
-                result.setResult("Wrong format: " + line);
+                order.setResult("Wrong format: " + line);
             }
 
-            result.setId(Integer.parseInt(split[0]));
-            result.setAmount(Double.parseDouble(split[1]));
-            result.setCurrency((split[2]));
-            result.setComment((split[3]));
-            result.setResult("OK");
+            order.setId(Integer.parseInt(split[0]));
+            order.setAmount(Double.parseDouble(split[1]));
+            order.setComment((split[3]));
+            order.setResult("OK");
         } catch (Exception e) {
-            result.setResult(e.getMessage());
+            order.setResult(e.getMessage());
         }
-        return result;
+        return order;
     }
 }
