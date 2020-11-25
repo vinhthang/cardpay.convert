@@ -6,7 +6,6 @@ import lombok.Data;
 public class Order {
     private Integer id;
     private Double amount;
-    private String currency;
     private String comment;
     private String filename;
     private Integer line;
